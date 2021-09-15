@@ -18,7 +18,7 @@ public class Account {
     private float creditLine;
     private float beginBalance;
     private LocalDateTime beginBalanceTimestamp;
-    private int type;
+    private AccountType type;
 
     
     //Getters and Setters
@@ -107,11 +107,20 @@ public class Account {
         this.beginBalanceTimestamp = beginBalanceTimestamp;
     }
 
+    /**
+     * @return the type
+     */
+    public AccountType getType() {
+        return type;
+    }
 
     /**
      * @param type the type to set
      */
-    public void setType(int type) {
+    public void setType(AccountType type) {
         this.type = type;
     }
+
+
+   
 }
