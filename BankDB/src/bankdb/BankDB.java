@@ -5,6 +5,8 @@
  */
 package bankdb;
 
+import model.Customer;
+
 /**
  *
  * @author 2dam
@@ -16,6 +18,12 @@ public class BankDB {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        /*
+        Por terminar los sets (atributos de cada clase)
+        Customer customer1 = new Customer();
+        customer1.setId();
+        */
     }
+
     
 }

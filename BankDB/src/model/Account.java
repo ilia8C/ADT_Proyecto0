@@ -5,13 +5,17 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author 2dam
  */
-public class Account {
+public class Account implements Serializable{
+
+    public Account() {
+    }
     private int id;
     private String description;
     private float balance;

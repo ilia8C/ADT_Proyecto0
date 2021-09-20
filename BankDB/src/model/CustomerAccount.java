@@ -5,13 +5,17 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author 2dam
  */
-public class CustomerAccount {
+public class CustomerAccount implements Serializable{
+
+    public CustomerAccount() {
+    }
     private int idAccount;
     private int idCustomer;
 

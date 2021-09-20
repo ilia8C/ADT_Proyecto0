@@ -5,13 +5,17 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author 2dam
  */
-public class Movement {
+public class Movement implements Serializable{
+
+    public Movement() {
+    }
     private int id;
     private LocalDateTime timestamp;
     private float amount;
