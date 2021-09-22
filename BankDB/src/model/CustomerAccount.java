@@ -16,8 +16,8 @@ public class CustomerAccount implements Serializable{
 
     public CustomerAccount() {
     }
-    private int idAccount;
-    private int idCustomer;
+    private long idAccount;
+    private long idCustomer;
 
     
     //Getters and Setters
@@ -25,28 +25,28 @@ public class CustomerAccount implements Serializable{
     /**
      * @return the idAccount
      */
-    public int getIdAccount() {
+    public long getIdAccount() {
         return idAccount;
     }
 
     /**
      * @param idAccount the idAccount to set
      */
-    public void setIdAccount(int idAccount) {
+    public void setIdAccount(long idAccount) {
         this.idAccount = idAccount;
     }
 
     /**
      * @return the idCustomer
      */
-    public int getIdCustomer() {
+    public long getIdCustomer() {
         return idCustomer;
     }
 
     /**
      * @param idCustomer the idCustomer to set
      */
-    public void setIdCustomer(int idCustomer) {
+    public void setIdCustomer(long idCustomer) {
         this.idCustomer = idCustomer;
     }
 }

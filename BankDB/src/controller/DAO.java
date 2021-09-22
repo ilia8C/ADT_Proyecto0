@@ -17,11 +17,11 @@ import model.Movement;
  */
 public interface DAO {
     public void createCustomer(Customer customer);
-    public Customer consultCustomer(Integer id);
-    public ArrayList<Account> counsultCustomerAccounts(Integer id);
+    public Customer consultCustomer(long id);
+    public ArrayList<Account> counsultCustomerAccounts(long id);
     public void createAccount(CustomerAccount customerAccount);
-    public void addCustomerToAccount(Integer id, Customer customer);
-    public Account consultAccount(Integer id);
-    public void makeMovement(Integer id);
-    public ArrayList<Movement> consultMovements(Integer account_id);
+    public void addCustomerToAccount(long id, Customer customer);
+    public Account consultAccount(long id);
+    public void makeMovement(long id);
+    public ArrayList<Movement> consultMovements(long account_id);
 }

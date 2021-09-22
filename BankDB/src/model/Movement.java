@@ -16,7 +16,7 @@ public class Movement implements Serializable{
 
     public Movement() {
     }
-    private int id;
+    private long id;
     private LocalDateTime timestamp;
     private float amount;
     private float balance;
@@ -28,14 +28,14 @@ public class Movement implements Serializable{
     /**
      * @return the id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

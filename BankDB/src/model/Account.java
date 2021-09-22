@@ -16,7 +16,7 @@ public class Account implements Serializable{
 
     public Account() {
     }
-    private int id;
+    private long id;
     private String description;
     private float balance;
     private float creditLine;
@@ -30,14 +30,14 @@ public class Account implements Serializable{
     /**
      * @return the id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

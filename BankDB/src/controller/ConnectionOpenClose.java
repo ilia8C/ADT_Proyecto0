@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -22,7 +23,7 @@ public class ConnectionOpenClose {
     private String pass;
     
     public ConnectionOpenClose(){
-        configFile = ResourceBundle.getBundle("DBConf.properties");
+        configFile = ResourceBundle.getBundle("DAOConnection.DBConf", new Locale("es"));
         url = configFile.getString("URL");
         user = configFile.getString("DBUser");
         pass = configFile.getString("DBPass");
