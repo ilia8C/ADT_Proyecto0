@@ -19,7 +19,7 @@ public interface DAO {
     public void createCustomer(Customer customer);
     public Customer consultCustomer(long id);
     public ArrayList<Account> counsultCustomerAccounts(long id);
-    public void createAccount(CustomerAccount customerAccount);
+    public void createAccount(CustomerAccount customerAccount, Account account);
     public void addCustomerToAccount(long id, Customer customer);
     public Account consultAccount(long id);
     public void makeMovement(long id);

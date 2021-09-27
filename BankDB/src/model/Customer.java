@@ -18,7 +18,7 @@ public class Customer implements Serializable{
     private long id;
     private String firstName;
     private String lastName;
-    private String middleIntial;
+    private String middleInitial;
     private String street;
     private String city;
     private String state;
@@ -75,15 +75,15 @@ public class Customer implements Serializable{
     /**
      * @return the middleIntial
      */
-    public String getMiddleIntial() {
-        return middleIntial;
+    public String getMiddleInitial() {
+        return middleInitial;
     }
 
     /**
      * @param middleIntial the middleIntial to set
      */
-    public void setMiddleIntial(String middleIntial) {
-        this.middleIntial = middleIntial;
+    public void setMiddleInitial(String middleInitial) {
+        this.middleInitial = middleInitial;
     }
 
     /**

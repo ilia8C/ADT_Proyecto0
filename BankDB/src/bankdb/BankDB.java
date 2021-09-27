@@ -5,7 +5,10 @@
  */
 package bankdb;
 
-import model.Customer;
+import controller.DAO;
+import controller.DAOImplementation;
+import view.Console;
+
 
 /**
  *
@@ -17,12 +20,10 @@ public class BankDB {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        /*
-        Por terminar los sets (atributos de cada clase)
-        Customer customer1 = new Customer();
-        customer1.setId();
-        */
+       DAO data = new DAOImplementation();
+       
+       Console console = new Console();
+       console.gestionarMenu(data);
     }
 
     

@@ -32,7 +32,7 @@ public class DAOImplementation implements DAO{
     
 
     //Sentences SQL
-    final String ADDCUSTOMER = "INSERT INTO CUSTOMER (id, city, email, firstName, lastName, middleIntial, phone, state, street, zip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    final String ADDCUSTOMER = "INSERT INTO CUSTOMER (id, city, email, firstName, lastName, middleInitial, phone, state, street, zip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     final String CONSULTCUSTOMER = "SELECT * FROM CUSTOMER WHERE id = ?";
     final String CONSULTCUSTOMERACCOUNT = "SELECT * FROM ACCOUNT WHERE id IN (SELECT accounts_id FROM CUSTOMER_ACCOUNT WHERE customers_id = ?)";
     final String CREATEACCOUNT = "INSERT INTO ACCOUNT (id, balance, beginBalance, beginBalanceTimestamp, creditLine, description, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -53,7 +53,7 @@ public class DAOImplementation implements DAO{
             stmt.setString(3, customer.getEmail());
             stmt.setString(4, customer.getFirstName());
             stmt.setString(5, customer.getLastName());
-            stmt.setString(6, customer.getMiddleIntial());
+            stmt.setString(6, customer.getMiddleInitial());
             stmt.setInt(7, customer.getPhone());
             stmt.setString(8, customer.getState());
             stmt.setString(9, customer.getStreet());
@@ -73,15 +73,67 @@ public class DAOImplementation implements DAO{
     
 
     @Override
-    public void createAccount(CustomerAccount customerAccount) {
-        
+    public void createAccount(CustomerAccount customerAccount, Account account) {
+         try {
+            con = connection.openConnection();
+//final String CREATEACCOUNT = "INSERT INTO ACCOUNT (id, balance, beginBalance, beginBalanceTimestamp, creditLine, description, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(CREATEACCOUNT);
+            stmt.setLong(1, account.getId());
+            stmt.setDouble(2, account.getBalance());
+            stmt.setDouble(3, account.getBeginBalance());
+            stmt.setTimestamp(4, account.getBeginBalanceTimestamp());
+            stmt.setDouble(5, account.getCreditLine());
+            stmt.setString(6, account.getDescription());
+            if(account.getType().equals("STANDARD"))
+                stmt.setInt(7, 0);
+            else if(account.getType().equals("CREDIT"))
+                stmt.setInt(7, 1);
+            
+            stmt.executeUpdate();
+            
+            connection.closeConnection(stmt, con);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
+    
 
     
 
     @Override
     public ArrayList<Movement> consultMovements(long idAccount) {
-        return null;
+        ArrayList<Movement> movements = new ArrayList<>();
+        try {
+
+//final String CONSULTMOVEMENTS = "SELECT * FROM MOVEMENT WHERE account_id = ?";
+
+            ResultSet rs = null;
+            con = connection.openConnection();
+            
+            stmt = con.prepareStatement(CONSULTMOVEMENTS);
+            stmt.setLong(1, idAccount);
+            
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Movement movement = new Movement();
+                movement.setId(rs.getLong("id"));
+                movement.setAmount(rs.getDouble("amount"));
+                movement.setBalance(rs.getDouble("balance"));
+                movement.setDescription(rs.getString("description"));
+                movement.setTimestamp(rs.getTimestamp("timestamp").toLocalDateTime());
+                movement.setAccount_id(rs.getLong("account_id"));
+                movements.add(movement);
+                
+                rs.close();
+                connection.closeConnection(stmt, con);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return movements;
         
     }
 
@@ -110,10 +162,13 @@ public class DAOImplementation implements DAO{
                 account.setBalance(rs.getFloat("balance"));
                 account.setBeginBalance(rs.getFloat("beginBalance"));
                 account.setCreditLine(rs.getFloat("creditLine"));
-                account.setBeginBalanceTimestamp(rs.getTimestamp("beginBalanceTimestamp").toLocalDateTime());
+                account.setBeginBalanceTimestamp(rs.getTimestamp("beginBalanceTimestamp"));
                 int auxType = rs.getInt("type");
                 account.setType(AccountType.values()[auxType]);
                 accounts.add(account);
+                
+                rs.close();
+                connection.closeConnection(stmt, con);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
