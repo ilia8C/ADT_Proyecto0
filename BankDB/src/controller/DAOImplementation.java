@@ -54,7 +54,7 @@ public class DAOImplementation implements DAO{
             stmt.setString(4, customer.getFirstName());
             stmt.setString(5, customer.getLastName());
             stmt.setString(6, customer.getMiddleInitial());
-            stmt.setInt(7, customer.getPhone());
+            stmt.setLong(7, customer.getPhone());
             stmt.setString(8, customer.getState());
             stmt.setString(9, customer.getStreet());
             stmt.setInt(10, customer.getZip());
@@ -180,7 +180,37 @@ public class DAOImplementation implements DAO{
 
     @Override
     public Customer consultCustomer(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //final String CONSULTCUSTOMER = "SELECT * FROM CUSTOMER WHERE id = ?";
+        Customer customer = null;
+        try {
+            ResultSet rs = null;
+            con = connection.openConnection();
+            stmt = con.prepareStatement(CONSULTCUSTOMER);
+            stmt.setLong(1, id);
+            
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                customer = new Customer();
+                customer.setId(id);
+                customer.setCity(rs.getString("city"));
+                customer.setEmail(rs.getString("email"));
+                customer.setFirstName(rs.getString("firstName"));
+                customer.setLastName(rs.getString("lastName"));
+                customer.setMiddleInitial(rs.getString("middleInitial"));
+                customer.setPhone(rs.getLong("phone"));
+                customer.setState(rs.getString("state"));
+                customer.setStreet(rs.getString("street"));
+                customer.setZip(rs.getInt("zip"));
+                
+                rs.close();
+                connection.closeConnection(stmt, con);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return customer;
     }
 
     @Override
@@ -190,7 +220,33 @@ public class DAOImplementation implements DAO{
 
     @Override
     public Account consultAccount(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Account account = null;
+        //final String CONSULTACCOUNT = "SELECT * FROM ACCOUNT WHERE id = ?";
+        try {
+            ResultSet rs = null;
+            con = connection.openConnection();
+            stmt = con.prepareStatement(CONSULTACCOUNT);
+            stmt.setLong(1, id);
+            
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                account = new Account();
+                account.setId(id);
+                account.setBalance(rs.getDouble("balance"));
+                account.setBeginBalance(rs.getDouble("beginBalance"));
+                account.setBeginBalanceTimestamp(rs.getTimestamp("beginBalanceTimestamp"));
+                account.setCreditLine(rs.getDouble("creditLine"));
+                account.setDescription(rs.getString("description"));
+                int auxType = rs.getInt("type");
+                account.setType(AccountType.values()[auxType]);
+                
+                rs.close();
+                connection.closeConnection(stmt, con);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return account;
     }
 
     @Override

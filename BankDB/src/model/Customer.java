@@ -23,7 +23,7 @@ public class Customer implements Serializable{
     private String city;
     private String state;
     private int zip;
-    private int phone;
+    private long phone;
     private String email;
 
     
@@ -145,14 +145,14 @@ public class Customer implements Serializable{
     /**
      * @return the phone
      */
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 
     /**
      * @param phone the phone to set
      */
-    public void setPhone(int phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 

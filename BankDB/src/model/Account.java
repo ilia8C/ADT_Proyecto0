@@ -19,9 +19,9 @@ public class Account implements Serializable{
     }
     private long id;
     private String description;
-    private float balance;
-    private float creditLine;
-    private float beginBalance;
+    private double balance;
+    private double creditLine;
+    private double beginBalance;
     private Timestamp beginBalanceTimestamp;
     private AccountType type;
 
@@ -59,42 +59,42 @@ public class Account implements Serializable{
     /**
      * @return the balance
      */
-    public float getBalance() {
+    public double getBalance() {
         return balance;
     }
 
     /**
      * @param balance the balance to set
      */
-    public void setBalance(float balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
     /**
      * @return the creditLine
      */
-    public float getCreditLine() {
+    public double getCreditLine() {
         return creditLine;
     }
 
     /**
      * @param creditLine the creditLine to set
      */
-    public void setCreditLine(float creditLine) {
+    public void setCreditLine(double creditLine) {
         this.creditLine = creditLine;
     }
 
     /**
      * @return the beginBalance
      */
-    public float getBeginBalance() {
+    public double getBeginBalance() {
         return beginBalance;
     }
 
     /**
      * @param beginBalance the beginBalance to set
      */
-    public void setBeginBalance(float beginBalance) {
+    public void setBeginBalance(double beginBalance) {
         this.beginBalance = beginBalance;
     }
 
