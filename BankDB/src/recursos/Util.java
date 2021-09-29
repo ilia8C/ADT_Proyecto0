@@ -370,7 +370,7 @@ public class Util {
 		String fechaAux;
 		LocalDateTime fecha = null;
 		boolean error;
-		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		do {
 			error = false;
 			fechaAux = Util.introducirCadena();

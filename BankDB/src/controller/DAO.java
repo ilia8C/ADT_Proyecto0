@@ -16,12 +16,12 @@ import model.Movement;
  * @author 2dam
  */
 public interface DAO {
-    public void createCustomer(Customer customer);
-    public Customer consultCustomer(long id);
-    public ArrayList<Account> counsultCustomerAccounts(long id);
-    public void createAccount(CustomerAccount customerAccount, Account account);
-    public void addCustomerToAccount(long id, Customer customer);
-    public Account consultAccount(long id);
-    public void makeMovement(long id);
-    public ArrayList<Movement> consultMovements(long account_id);
+    public void createCustomer(Customer customer) throws Exception;
+    public Customer consultCustomer(long id) throws Exception;
+    public ArrayList<Account> counsultCustomerAccounts(long id) throws Exception;
+    public void createAccount(Customer customer, Account account) throws Exception;
+    public void addCustomerToAccount(long account_id, long customer_id) throws Exception;
+    public Account consultAccount(long id) throws Exception;
+    public void makeMovement(long account_id,Movement movement) throws Exception;
+    public ArrayList<Movement> consultMovements(long account_id) throws Exception;
 }

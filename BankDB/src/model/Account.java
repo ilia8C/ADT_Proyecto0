@@ -22,7 +22,7 @@ public class Account implements Serializable{
     private double balance;
     private double creditLine;
     private double beginBalance;
-    private Timestamp beginBalanceTimestamp;
+    private LocalDateTime beginBalanceTimestamp;
     private AccountType type;
 
     
@@ -102,14 +102,14 @@ public class Account implements Serializable{
      * 
      * @return 
      */
-    public Timestamp getBeginBalanceTimestamp() {
+    public LocalDateTime getBeginBalanceTimestamp() {
         return beginBalanceTimestamp;
     }
     /**
      * 
      * @param beginBalanceTimestamp 
      */
-    public void setBeginBalanceTimestamp(Timestamp beginBalanceTimestamp) {
+    public void setBeginBalanceTimestamp(LocalDateTime beginBalanceTimestamp) {
         this.beginBalanceTimestamp = beginBalanceTimestamp;
     }
 

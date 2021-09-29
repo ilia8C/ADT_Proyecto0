@@ -6,6 +6,11 @@
 package view;
 
 import controller.DAO;
+import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Account;
+import model.AccountType;
 import model.Customer;
 import recursos.Util;
 
@@ -24,13 +29,14 @@ public class Console {
                     customerCreation(datos);
                     break;
             case '2':
-
+                consultCustomer(datos);
+                    
                     break;
             case '3':
 
                     break;
             case '4':
-
+                    accountCreation(datos);
                     break;
             case '5':
 
@@ -96,7 +102,54 @@ public class Console {
         System.out.println("Introduce the customer's email: ");
         customer.setEmail(Util.introducirCadena());
         
-        datos.createCustomer(customer);
+        try {
+            datos.createCustomer(customer);
+        } catch (Exception ex) {
+            System.out.println("Error creating the customer");;
+        }
        
+    }
+
+    private void accountCreation(DAO datos) {
+        Account account = new Account();
+        System.out.println("Introduce the account id: ");
+        account.setId(Util.leerLong());
+        System.out.println("Introduce the account balance: ");
+        account.setBalance(Util.leerDouble());
+        System.out.println("Introduce the account begin balance: ");
+        account.setBeginBalance(Util.leerDouble());
+        System.out.println("Introduce the account begin balance timestamp: ");
+        account.setBeginBalanceTimestamp(Util.leerFechaHora());
+        System.out.println("Introduce the account credit line: ");
+        account.setCreditLine(Util.leerDouble());
+        System.out.println("Introduce the account description: ");
+        account.setDescription(Util.introducirCadena());
+        System.out.println("Introduce the account type: ");
+        int auxType = Util.leerInt();
+        account.setType(AccountType.values()[auxType]);
+        System.out.println("Introduce the id of the client to create the account");
+        try {
+            Customer customer=datos.consultCustomer(Util.leerLong());
+            datos.createAccount(customer, account);
+        } catch (Exception ex) {
+            System.out.println("There´s no customer with that id");;
+        }
+        
+       
+        
+        
+        
+                
+    }
+
+    private void consultCustomer(DAO datos) {
+        System.out.println("Introduce the customer id: ");
+        long id=Util.leerLong();
+        try {
+            Customer customer=datos.consultCustomer(id);
+            System.out.println(customer.getFirstName());
+        } catch (Exception ex) {
+            System.out.println("There´s no customer with that id");;
+        }
     }
 }
