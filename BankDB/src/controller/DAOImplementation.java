@@ -5,7 +5,6 @@
  */
 package controller;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -23,13 +22,12 @@ import model.AccountType;
  *
  * @author 2dam
  */
-public class DAOImplementation implements DAO{
+public class DAOImplementation implements DAO {
 
     //Atributes
     private Connection con;
     private PreparedStatement stmt;
     private ConnectionOpenClose connection = new ConnectionOpenClose();
-    
 
     //Sentences SQL
     final String ADDCUSTOMER = "INSERT INTO CUSTOMER (id, city, email, firstName, lastName, middleInitial, phone, state, street, zip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -40,13 +38,16 @@ public class DAOImplementation implements DAO{
     final String CONSULTACCOUNT = "SELECT * FROM ACCOUNT WHERE id = ?";
     final String MAKEMOVEMENT = "INSERT INTO MOVEMENT (id, amount, balance, description, timestamp, account_id) VALUES (?, ?, ?, ?, ?, ?)";
     final String CONSULTMOVEMENTS = "SELECT * FROM MOVEMENT WHERE account_id = ?";
-    
-    
+
+    /**
+     *
+     * @param customer
+     */
     @Override
     public void createCustomer(Customer customer) {
         try {
             con = connection.openConnection();
-            
+
             stmt = con.prepareStatement(ADDCUSTOMER);
             stmt.setLong(1, customer.getId());
             stmt.setString(2, customer.getCity());
@@ -58,23 +59,26 @@ public class DAOImplementation implements DAO{
             stmt.setString(8, customer.getState());
             stmt.setString(9, customer.getStreet());
             stmt.setInt(10, customer.getZip());
-            
+
             stmt.executeUpdate();
-            
+
             connection.closeConnection(stmt, con);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
-   
-    
-
+    /**
+     *
+     * @param customerAccount
+     * @param account
+     */
     @Override
+    @SuppressWarnings("IncompatibleEquals")
     public void createAccount(CustomerAccount customerAccount, Account account) {
-         try {
+        try {
             con = connection.openConnection();
 //final String CREATEACCOUNT = "INSERT INTO ACCOUNT (id, balance, beginBalance, beginBalanceTimestamp, creditLine, description, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
             stmt = con.prepareStatement(CREATEACCOUNT);
@@ -84,40 +88,41 @@ public class DAOImplementation implements DAO{
             stmt.setTimestamp(4, account.getBeginBalanceTimestamp());
             stmt.setDouble(5, account.getCreditLine());
             stmt.setString(6, account.getDescription());
-            if(account.getType().equals("STANDARD"))
+            if (account.getType().equals("STANDARD")) {
                 stmt.setInt(7, 0);
-            else if(account.getType().equals("CREDIT"))
+            } else if (account.getType().equals("CREDIT")) {
                 stmt.setInt(7, 1);
-            
+            }
+
             stmt.executeUpdate();
-            
+
             connection.closeConnection(stmt, con);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    
-
-    
-
+    /**
+     *
+     * @param idAccount
+     * @return
+     */
     @Override
     public ArrayList<Movement> consultMovements(long idAccount) {
         ArrayList<Movement> movements = new ArrayList<>();
         try {
 
 //final String CONSULTMOVEMENTS = "SELECT * FROM MOVEMENT WHERE account_id = ?";
-
             ResultSet rs = null;
             con = connection.openConnection();
-            
+
             stmt = con.prepareStatement(CONSULTMOVEMENTS);
             stmt.setLong(1, idAccount);
-            
+
             rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Movement movement = new Movement();
                 movement.setId(rs.getLong("id"));
                 movement.setAmount(rs.getDouble("amount"));
@@ -126,7 +131,7 @@ public class DAOImplementation implements DAO{
                 movement.setTimestamp(rs.getTimestamp("timestamp").toLocalDateTime());
                 movement.setAccount_id(rs.getLong("account_id"));
                 movements.add(movement);
-                
+
                 rs.close();
                 connection.closeConnection(stmt, con);
             }
@@ -134,28 +139,30 @@ public class DAOImplementation implements DAO{
             Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return movements;
-        
+
     }
 
-   
-
-
+    /**
+     *
+     * @param idCustomer
+     * @return
+     */
     @Override
     public ArrayList<Account> counsultCustomerAccounts(long idCustomer) {
-       
+
         ArrayList<Account> accounts = new ArrayList<>();
         try {
             // final String CONSULTCUSTOMERACCOUNT = "SELECT * FROM ACCOUNT WHERE id IN (SELECT accounts_id FROM CUSTOMER_ACCOUNT WHERE customers_id = ?)";
-           
+
             ResultSet rs = null;
-            con =connection.openConnection();
-            
+            con = connection.openConnection();
+
             stmt = con.prepareStatement(CONSULTCUSTOMERACCOUNT);
             stmt.setLong(1, idCustomer);
-                     
+
             rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Account account = new Account();
                 account.setId(rs.getLong("id"));
                 account.setDescription(rs.getString("description"));
@@ -166,18 +173,22 @@ public class DAOImplementation implements DAO{
                 int auxType = rs.getInt("type");
                 account.setType(AccountType.values()[auxType]);
                 accounts.add(account);
-                
+
                 rs.close();
                 connection.closeConnection(stmt, con);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         return accounts;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Customer consultCustomer(long id) {
         //final String CONSULTCUSTOMER = "SELECT * FROM CUSTOMER WHERE id = ?";
@@ -187,10 +198,10 @@ public class DAOImplementation implements DAO{
             con = connection.openConnection();
             stmt = con.prepareStatement(CONSULTCUSTOMER);
             stmt.setLong(1, id);
-            
+
             rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 customer = new Customer();
                 customer.setId(id);
                 customer.setCity(rs.getString("city"));
@@ -202,22 +213,32 @@ public class DAOImplementation implements DAO{
                 customer.setState(rs.getString("state"));
                 customer.setStreet(rs.getString("street"));
                 customer.setZip(rs.getInt("zip"));
-                
+
                 rs.close();
                 connection.closeConnection(stmt, con);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return customer;
+        return customer;
     }
 
+    /**
+     *
+     * @param id
+     * @param customer
+     */
     @Override
     public void addCustomerToAccount(long id, Customer customer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Account consultAccount(long id) {
         Account account = null;
@@ -227,9 +248,9 @@ public class DAOImplementation implements DAO{
             con = connection.openConnection();
             stmt = con.prepareStatement(CONSULTACCOUNT);
             stmt.setLong(1, id);
-            
+
             rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 account = new Account();
                 account.setId(id);
                 account.setBalance(rs.getDouble("balance"));
@@ -239,7 +260,7 @@ public class DAOImplementation implements DAO{
                 account.setDescription(rs.getString("description"));
                 int auxType = rs.getInt("type");
                 account.setType(AccountType.values()[auxType]);
-                
+
                 rs.close();
                 connection.closeConnection(stmt, con);
             }
@@ -249,6 +270,10 @@ public class DAOImplementation implements DAO{
         return account;
     }
 
+    /**
+     *
+     * @param id
+     */
     @Override
     public void makeMovement(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

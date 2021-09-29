@@ -22,6 +22,9 @@ public class ConnectionOpenClose {
     private String user;
     private String pass;
     
+    /**
+     * Connection Open Close
+     */
     public ConnectionOpenClose(){
         configFile = ResourceBundle.getBundle("DAOConnection.DBConf", new Locale("es"));
         url = configFile.getString("URL");
@@ -29,6 +32,11 @@ public class ConnectionOpenClose {
         pass = configFile.getString("DBPass");
     }
     
+    /**
+     * open Connection
+     * @return
+     * @throws SQLException
+     */
     public Connection openConnection()throws SQLException{
         
         Connection con = null;
@@ -39,6 +47,12 @@ public class ConnectionOpenClose {
         return con;
     }
     
+    /**
+     * close Connection
+     * @param stmt
+     * @param con
+     * @throws SQLException
+     */
     public void closeConnection(PreparedStatement stmt, Connection con) throws SQLException{
         
         if(stmt != null){

@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author 2dam
  */
-public class Customer implements Serializable{
+public class Customer implements Serializable {
 
     public Customer() {
     }
@@ -26,10 +26,7 @@ public class Customer implements Serializable{
     private long phone;
     private String email;
 
-    
-    
     //Getters and Setters
-    
     /**
      * @return the id
      */
@@ -80,7 +77,7 @@ public class Customer implements Serializable{
     }
 
     /**
-     * @param middleIntial the middleIntial to set
+     * @param middleInitial
      */
     public void setMiddleInitial(String middleInitial) {
         this.middleInitial = middleInitial;

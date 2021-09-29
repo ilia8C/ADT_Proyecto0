@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  *
  * @author 2dam
  */
-public class Movement implements Serializable{
+public class Movement implements Serializable {
 
     public Movement() {
     }
@@ -23,11 +23,7 @@ public class Movement implements Serializable{
     private String description;
     private long account_id;
 
-   
-
-    
     //Getters and Setters
-    
     /**
      * @return the id
      */
@@ -97,11 +93,19 @@ public class Movement implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
-    
-     public long getAccount_id() {
+
+    /**
+     *
+     * @return
+     */
+    public long getAccount_id() {
         return account_id;
     }
 
+    /**
+     *
+     * @param account_id
+     */
     public void setAccount_id(long account_id) {
         this.account_id = account_id;
     }

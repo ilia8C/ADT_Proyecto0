@@ -6,22 +6,22 @@
 package model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  *
  * @author 2dam
  */
-public class CustomerAccount implements Serializable{
+public class CustomerAccount implements Serializable {
 
+    /**
+     *
+     */
     public CustomerAccount() {
     }
     private long idAccount;
     private long idCustomer;
 
-    
     //Getters and Setters
-    
     /**
      * @return the idAccount
      */

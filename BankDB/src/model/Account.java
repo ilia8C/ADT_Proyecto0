@@ -7,14 +7,16 @@ package model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 /**
  *
  * @author 2dam
  */
-public class Account implements Serializable{
+public class Account implements Serializable {
 
+    /**
+     *
+     */
     public Account() {
     }
     private long id;
@@ -25,9 +27,7 @@ public class Account implements Serializable{
     private Timestamp beginBalanceTimestamp;
     private AccountType type;
 
-    
     //Getters and Setters
-    
     /**
      * @return the id
      */
@@ -99,21 +99,20 @@ public class Account implements Serializable{
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public Timestamp getBeginBalanceTimestamp() {
         return beginBalanceTimestamp;
     }
+
     /**
-     * 
-     * @param beginBalanceTimestamp 
+     *
+     * @param beginBalanceTimestamp
      */
     public void setBeginBalanceTimestamp(Timestamp beginBalanceTimestamp) {
         this.beginBalanceTimestamp = beginBalanceTimestamp;
     }
-
-   
 
     /**
      * @return the type
@@ -129,6 +128,4 @@ public class Account implements Serializable{
         this.type = type;
     }
 
-
-   
 }

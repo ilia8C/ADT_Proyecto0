@@ -14,67 +14,73 @@ import recursos.Util;
  * @author 2dam
  */
 public class Console {
-    public void gestionarMenu(DAO datos){
-         char opc;
-   
-    do{			
-        opc = menu();
-        switch(opc) {
-            case '1':
+
+    /**
+     *
+     * @param datos
+     */
+    public void gestionarMenu(DAO datos) {
+        char opc;
+
+        do {
+            opc = menu();
+            switch (opc) {
+                case '1':
                     customerCreation(datos);
                     break;
-            case '2':
+                case '2':
 
                     break;
-            case '3':
+                case '3':
 
                     break;
-            case '4':
+                case '4':
 
                     break;
-            case '5':
+                case '5':
 
                     break;
-            case '6':
+                case '6':
 
                     break;
-            case '7':
+                case '7':
 
                     break;
-            case '8':
+                case '8':
 
                     break;
-            case '9':
+                case '9':
                     System.out.println("End of the program.");
                     break;
-            default:
+                default:
                     System.out.println("Incorrect selection.");
                     break;
-        }
-    }while(opc != '9');
+            }
+        } while (opc != '9');
     }
-    
-   
-        
-        private char menu() {
-            char opc;
-            System.out.println("\n\tMENÚ:"
-                            + "\n1. CREATE CUSTOMER."
-                            + "\n2. CONSULT CUSTOMER DATA."
-                            + "\n3. CONSULT ACCOUNT OF A CLIENT."
-                            + "\n4. CREATE CUSTOMER ACCOUNT."
-                            + "\n5. ADD CUSTOMER TO ACCOUNT."
-                            + "\n6. MAKE MOVEMENTS ON AN ACCOUNT."
-                            + "\n8. CONSULT MOVEMENTS OF AN ACCOUNT."
-                            + "\n9. SALIR.");
-            opc = Util.leerChar("Elige una opción:");
-            return opc;
-	}
-		
-    
-    public void customerCreation(DAO datos){
+
+    private char menu() {
+        char opc;
+        System.out.println("\n\tMENÚ:"
+                + "\n1. CREATE CUSTOMER."
+                + "\n2. CONSULT CUSTOMER DATA."
+                + "\n3. CONSULT ACCOUNT OF A CLIENT."
+                + "\n4. CREATE CUSTOMER ACCOUNT."
+                + "\n5. ADD CUSTOMER TO ACCOUNT."
+                + "\n6. MAKE MOVEMENTS ON AN ACCOUNT."
+                + "\n8. CONSULT MOVEMENTS OF AN ACCOUNT."
+                + "\n9. SALIR.");
+        opc = Util.leerChar("Elige una opción:");
+        return opc;
+    }
+
+    /**
+     *
+     * @param datos
+     */
+    public void customerCreation(DAO datos) {
         Customer customer = new Customer();
-        
+
         System.out.println("Introduce the customer's id: ");
         customer.setId(Util.leerLong());
         System.out.println("Introduce the customer's first name: ");
@@ -95,8 +101,8 @@ public class Console {
         customer.setPhone(Util.leerInt());
         System.out.println("Introduce the customer's email: ");
         customer.setEmail(Util.introducirCadena());
-        
+
         datos.createCustomer(customer);
-       
+
     }
 }
