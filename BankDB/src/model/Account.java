@@ -129,6 +129,11 @@ public class Account implements Serializable{
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" + "id=" + id + ", description=" + description + ", balance=" + balance + ", creditLine=" + creditLine + ", beginBalance=" + beginBalance + ", beginBalanceTimestamp=" + beginBalanceTimestamp + ", type=" + type + '}';
+    }
+
 
    
 }

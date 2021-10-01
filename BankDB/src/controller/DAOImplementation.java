@@ -17,6 +17,7 @@ import model.CustomerAccount;
 import model.Movement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import model.AccountType;
 
 /**
@@ -37,7 +38,7 @@ public class DAOImplementation implements DAO {
     final String CREATEACCOUNT = "INSERT INTO ACCOUNT (id, balance, beginBalance, beginBalanceTimestamp, creditLine, description, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
     final String INSERTACCOUNTCUSTOMER = "INSERT INTO CUSTOMER_ACCOUNT (customers_id, accounts_id) VALUES (?, ?)";
     final String CONSULTACCOUNT = "SELECT * FROM ACCOUNT WHERE id = ?";
-    final String MAKEMOVEMENT = "INSERT INTO MOVEMENT (id, amount, balance, description, timestamp, account_id) VALUES (?, ?, ?, ?, ?, ?)";
+    final String MAKEMOVEMENT = "INSERT INTO MOVEMENT (id, amount, balance, description, timestamp, account_id) VALUES (null, ?, ?, ?, ?, ?)";
     final String CONSULTMOVEMENTS = "SELECT * FROM MOVEMENT WHERE account_id = ?";
 
     @Override
@@ -105,7 +106,7 @@ public class DAOImplementation implements DAO {
             movement.setAmount(rs.getDouble("amount"));
             movement.setBalance(rs.getDouble("balance"));
             movement.setDescription(rs.getString("description"));
-            movement.setTimestamp(rs.getTimestamp("timestamp"));
+            movement.setTimestamp(rs.getTimestamp("timestamp").toLocalDateTime());
             movement.setAccount_id(rs.getLong("account_id"));
             movements.add(movement);
             
@@ -117,7 +118,7 @@ public class DAOImplementation implements DAO {
     }
 
     @Override
-    public ArrayList<Account> counsultCustomerAccounts(long idCustomer) throws Exception {
+    public ArrayList<Account> consultCustomerAccounts(long idCustomer) throws Exception {
 
         ArrayList<Account> accounts = new ArrayList<>();
 
@@ -132,11 +133,11 @@ public class DAOImplementation implements DAO {
         while (rs.next()) {
             Account account = new Account();
             account.setId(rs.getLong("id"));
-            account.setDescription(rs.getString("description"));
             account.setBalance(rs.getFloat("balance"));
             account.setBeginBalance(rs.getFloat("beginBalance"));
-            account.setCreditLine(rs.getFloat("creditLine"));
             account.setBeginBalanceTimestamp(rs.getTimestamp("beginBalanceTimestamp").toLocalDateTime());
+            account.setCreditLine(rs.getFloat("creditLine"));
+            account.setDescription(rs.getString("description"));
             int auxType = rs.getInt("type");
             account.setType(AccountType.values()[auxType]);
             accounts.add(account);
@@ -222,18 +223,16 @@ public class DAOImplementation implements DAO {
     }
 
     @Override
-    public void makeMovement(long account_id, Movement movement) throws Exception {
+    public void makeMovement(Movement movement) throws Exception {
 
         con = connection.openConnection();
         stmt = con.prepareStatement(MAKEMOVEMENT);
 
-        stmt.setLong(1, movement.getId());
-        stmt.setDouble(2, movement.getAmount());
-        stmt.setDouble(3, movement.getBalance());
-        stmt.setString(4, movement.getDescription());
-        stmt.setTimestamp(5, movement.getTimestamp());
-        stmt.setLong(6, account_id);
-
+        stmt.setDouble(1, movement.getAmount());
+        stmt.setDouble(2, movement.getBalance());
+        stmt.setString(3, movement.getDescription());
+        stmt.setTimestamp(4, Timestamp.valueOf(movement.getTimestamp()));
+        stmt.setLong(5, movement.getAccount_id());
         stmt.executeUpdate();
         connection.closeConnection(stmt, con);
 

@@ -6,7 +6,7 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Movement implements Serializable{
     public Movement() {
     }
     private long id;
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
     private double amount;
     private double balance;
     private String description;
@@ -45,14 +45,14 @@ public class Movement implements Serializable{
     /**
      * @return the timestamp
      */
-    public Timestamp getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
     /**
      * @param timestamp the timestamp to set
      */
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -105,4 +105,11 @@ public class Movement implements Serializable{
     public void setAccount_id(long account_id) {
         this.account_id = account_id;
     }
+
+    @Override
+    public String toString() {
+        return "Movement{" + "id=" + id + ", timestamp=" + timestamp + ", amount=" + amount + ", balance=" + balance + ", description=" + description + ", account_id=" + account_id + '}';
+    }
+    
+    
 }

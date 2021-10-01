@@ -23,7 +23,7 @@ public class ConnectionOpenClose {
     private String pass;
     
     public ConnectionOpenClose(){
-        configFile = ResourceBundle.getBundle("DAOConnection.DBConf", new Locale("es"));
+        configFile = ResourceBundle.getBundle("DAOConnection.DBConf");
         url = configFile.getString("URL");
         user = configFile.getString("DBUser");
         pass = configFile.getString("DBPass");
@@ -35,6 +35,7 @@ public class ConnectionOpenClose {
         try{
             con = DriverManager.getConnection(url, user, pass);
         }catch (SQLException e){
+            System.out.println(e.getMessage());
         }
         return con;
     }
