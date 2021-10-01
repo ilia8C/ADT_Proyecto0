@@ -5,6 +5,11 @@
  */
 package bankdb;
 
+import controller.DAO;
+import controller.DAOImplementation;
+import view.Console;
+
+
 /**
  *
  * @author 2dam
@@ -15,7 +20,11 @@ public class BankDB {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       DAO data = new DAOImplementation();
+       
+       Console console = new Console();
+       console.gestionarMenu(data);
     }
+
     
 }

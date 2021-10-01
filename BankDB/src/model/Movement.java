@@ -5,18 +5,25 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author 2dam
  */
-public class Movement {
-    private int id;
+public class Movement implements Serializable{
+
+    public Movement() {
+    }
+    private long id;
     private LocalDateTime timestamp;
-    private float amount;
-    private float balance;
+    private double amount;
+    private double balance;
     private String description;
+    private long account_id;
+
+   
 
     
     //Getters and Setters
@@ -24,14 +31,14 @@ public class Movement {
     /**
      * @return the id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -52,28 +59,28 @@ public class Movement {
     /**
      * @return the amount
      */
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
     /**
      * @param amount the amount to set
      */
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
     /**
      * @return the balance
      */
-    public float getBalance() {
+    public double getBalance() {
         return balance;
     }
 
     /**
      * @param balance the balance to set
      */
-    public void setBalance(float balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
@@ -90,4 +97,19 @@ public class Movement {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+     public long getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(long account_id) {
+        this.account_id = account_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Movement{" + "id=" + id + ", timestamp=" + timestamp + ", amount=" + amount + ", balance=" + balance + ", description=" + description + ", account_id=" + account_id + '}';
+    }
+    
+    
 }

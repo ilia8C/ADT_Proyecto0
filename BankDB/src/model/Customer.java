@@ -5,20 +5,25 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 2dam
  */
-public class Customer {
-    private int id;
+public class Customer implements Serializable{
+
+    public Customer() {
+    }
+    private long id;
     private String firstName;
     private String lastName;
-    private String middleIntial;
+    private String middleInitial;
     private String street;
     private String city;
     private String state;
     private int zip;
-    private int phone;
+    private long phone;
     private String email;
 
     
@@ -28,14 +33,14 @@ public class Customer {
     /**
      * @return the id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -70,15 +75,15 @@ public class Customer {
     /**
      * @return the middleIntial
      */
-    public String getMiddleIntial() {
-        return middleIntial;
+    public String getMiddleInitial() {
+        return middleInitial;
     }
 
     /**
      * @param middleIntial the middleIntial to set
      */
-    public void setMiddleIntial(String middleIntial) {
-        this.middleIntial = middleIntial;
+    public void setMiddleInitial(String middleInitial) {
+        this.middleInitial = middleInitial;
     }
 
     /**
@@ -140,14 +145,14 @@ public class Customer {
     /**
      * @return the phone
      */
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 
     /**
      * @param phone the phone to set
      */
-    public void setPhone(int phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 
@@ -164,4 +169,11 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", middleInitial=" + middleInitial + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + '}';
+    }
+    
+    
 }

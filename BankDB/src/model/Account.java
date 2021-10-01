@@ -5,18 +5,23 @@
  */
 package model;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author 2dam
  */
-public class Account {
-    private int id;
+public class Account implements Serializable{
+
+    public Account() {
+    }
+    private long id;
     private String description;
-    private float balance;
-    private float creditLine;
-    private float beginBalance;
+    private double balance;
+    private double creditLine;
+    private double beginBalance;
     private LocalDateTime beginBalanceTimestamp;
     private AccountType type;
 
@@ -26,14 +31,14 @@ public class Account {
     /**
      * @return the id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -54,58 +59,61 @@ public class Account {
     /**
      * @return the balance
      */
-    public float getBalance() {
+    public double getBalance() {
         return balance;
     }
 
     /**
      * @param balance the balance to set
      */
-    public void setBalance(float balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
     /**
      * @return the creditLine
      */
-    public float getCreditLine() {
+    public double getCreditLine() {
         return creditLine;
     }
 
     /**
      * @param creditLine the creditLine to set
      */
-    public void setCreditLine(float creditLine) {
+    public void setCreditLine(double creditLine) {
         this.creditLine = creditLine;
     }
 
     /**
      * @return the beginBalance
      */
-    public float getBeginBalance() {
+    public double getBeginBalance() {
         return beginBalance;
     }
 
     /**
      * @param beginBalance the beginBalance to set
      */
-    public void setBeginBalance(float beginBalance) {
+    public void setBeginBalance(double beginBalance) {
         this.beginBalance = beginBalance;
     }
 
     /**
-     * @return the beginBalanceTimestamp
+     * 
+     * @return 
      */
     public LocalDateTime getBeginBalanceTimestamp() {
         return beginBalanceTimestamp;
     }
-
     /**
-     * @param beginBalanceTimestamp the beginBalanceTimestamp to set
+     * 
+     * @param beginBalanceTimestamp 
      */
     public void setBeginBalanceTimestamp(LocalDateTime beginBalanceTimestamp) {
         this.beginBalanceTimestamp = beginBalanceTimestamp;
     }
+
+   
 
     /**
      * @return the type
@@ -119,6 +127,11 @@ public class Account {
      */
     public void setType(AccountType type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "id=" + id + ", description=" + description + ", balance=" + balance + ", creditLine=" + creditLine + ", beginBalance=" + beginBalance + ", beginBalanceTimestamp=" + beginBalanceTimestamp + ", type=" + type + '}';
     }
 
 
